@@ -1,0 +1,174 @@
+{% load socialaccount %}
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body { 
+            background-color: #f8f9fa; 
+            font-family: Arial, sans-serif; 
+            margin: 0;
+            padding: 0;
+        }
+        .messages { 
+            color: red; 
+            list-style: none; 
+            padding: 0; 
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .login-box { 
+            max-width: 360px; 
+            margin: 60px auto; 
+            padding: 25px; 
+            border: 1px solid #eee; 
+            background: #fff; 
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        .login-box h1 {
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .login-box label {
+            font-size: 14px;
+            color: #666;
+            display: block;
+            margin-top: 10px;
+        }
+        .login-box input { 
+            width: 100%; 
+            padding: 10px; 
+            margin: 6px 0 14px 0; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .login-box input:focus {
+            border-color: #0056b3;
+            outline: none;
+        }
+        .login-box button { 
+            padding: 10px 20px; 
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .login-box button:hover {
+            background-color: #0056b3;
+        }
+        .register-link {
+            margin-left: 12px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Chiroyli "yoki" chizig'i */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #999;
+            margin: 20px 0;
+            font-size: 14px;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #eaeaea;
+        }
+        .divider:not(:empty)::before { margin-right: .25em; }
+        .divider:not(:empty)::after { margin-left: .25em; }
+
+        /* Google tugmasi dizayni */
+        .btn-google {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 10px;
+            background-color: #fff;
+            color: #555;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 14px;
+            transition: background 0.2s;
+            box-sizing: border-box;
+        }
+        .btn-google:hover {
+            background-color: #f1f1f1;
+            border-color: #999;
+        }
+        .btn-google i {
+            color: #ea4335; 
+            margin-right: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h1>Login</h1>
+        
+        {% if messages %}
+            <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
+            
+            <label>Username</label>
+            <input type="text" name="username" placeholder="username" value="{{ username|default:'' }}">
+            
+            <label>Password</label>
+            <input type="password" name="password" placeholder="password">
+            
+            <div style="margin-top:12px; display: flex; align-items: center;">
+                <button type="submit">Login</button>
+                <a href="{% url 'register' %}" class="register-link">Register</a>
+
+                {% if google_enabled %}
+                <a href="{% url 'google_start' %}" class="register-link btn-google" style="margin-left:8px;padding:6px 10px;font-size:13px;display:inline-flex;align-items:center;">
+                    <i class="bi bi-google" style="margin-right:6px;font-size:14px;color:#ea4335;"></i> Google bilan ro'yxatdan o'tish
+                </a>
+                {% else %}
+                <button type="button" class="register-link btn-google" disabled style="margin-left:8px;padding:6px 10px;font-size:13px;opacity:0.7;cursor:not-allowed;">Google bilan ro'yxatdan o'tish</button>
+                {% endif %}
+            </div>
+        </form>
+
+         <div class="divider">yoki</div>
+
+        {% if google_enabled %}
+        
+        {% else %}
+        <button type="button" class="btn-google" disabled>
+            <i class="bi bi-google"></i> Google orqali kirish
+        </button>
+        {% endif %}
+     </div>
+
+</body>
+</html>

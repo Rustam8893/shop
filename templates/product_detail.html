@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="product-card">
+            <div class="image-section">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+            </div>
+
+            <div class="info-section">
+                <nav>
+                    <a href="{% url 'home' %}" class="back-link">← Orqaga</a>
+                    <span class="category">{{ product.category.name }}</span>
+                </nav>
+
+                <h1>{{ product.name }}</h1>
+                
+                <div class="price-box">
+                    <span class="price">{{ product.price }} so'm</span>
+                    <span class="stock">Zaxirada: {{ product.quantity }} {{ product.product_type }}</span>
+                </div>
+
+                <p class="desc">{{ product.description }}</p>
+
+                <div class="buttons">
+                    <button class="add-btn">Savatga qo'shish</button>
+                    <button class="fav-btn">♥</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

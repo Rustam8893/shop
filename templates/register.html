@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Register sahifasi</h1>
+    <form method="post">
+        {% csrf_token %}
+        <input type="text" name="phone" placeholder="phone"><br>
+        <input type="text" name="username" placeholder="username"><br>
+        <input type="password" name="password" placeholder="password"><br>
+        <button type="submit">Register</button> 
+        <a href="{% url 'login' %}">Agar ro'yhatdan o'tgan bo'lsang kir</a>
+    </form>
+</body>
+</html>

@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <div class="header-container">
+ 
+        <a href="{% url 'edit_profile' %}" class="edit-profile-btn">Edit Profile</a>
+        <a href="{% url 'add_product' %}" class="add-product-btn">Add product</a>
+    </div>
+
+    <div class="product-container">
+        {% for product in products %}
+        <div class="glass-card">
+            <div class="card-image">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <span class="category-badge">{{ product.category.name }}</span>
+            </div>
+            <div class="card-content">
+                <h3 class="product-name">
+                    <a href="{% url 'product_detail' product.id %}">{{ product.name }}</a>
+                </h3>
+                <div class="card-footer">
+                    <span class="price">{{ product.price }} <span class="currency">so'm / {{ product.product_type }}</span></span>
+                    <button class="add-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 5v14M5 12h14"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="liquid-blob"></div>
+        </div>
+        {% endfor %}
+    </div>
+
+
+    </div> <div style="margin-top: 50px; padding: 20px; background: rgba(255,255,255,0.05);">
+        {% for p in products %}
+            <img src="{{ p.image.url }}" alt="" style="width: 100px; height: 100px; object-fit: cover;">
+            <h3 style="color: white;">{{ p.name }}</h3>
+        {% endfor %}
+    </div>
+
+</body>
+</html>
